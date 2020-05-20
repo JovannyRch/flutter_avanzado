@@ -211,3 +211,61 @@ class _MiPainter5 extends CustomPainter {
     return true;
   }
 }
+
+class HeaderGradiente extends StatelessWidget {
+  const HeaderGradiente({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      child: CustomPaint(
+        painter: _MiPainter6(),
+      ),
+    );
+  }
+}
+
+class _MiPainter6 extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rect = new Rect.fromCircle(
+      center: Offset(0.0, 60.0),
+      radius: 180.0,
+    );
+    Gradient g = new LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [
+          Color(0xff6085e8),
+          Color(0xffC012ff),
+          Color(0xff6d05fa),
+        ],
+        stops: [
+          0.0,
+          0.3,
+          1.0,
+        ]);
+    final paint = new Paint()..shader = g.createShader(rect);
+    paint.style = PaintingStyle.fill;
+    final path = new Path();
+    path.lineTo(0, size.height * 0.45);
+    //path.arcTo();
+    //path.lineTo(size.width, size.height * 0.45);
+    path.quadraticBezierTo(size.width * 0.25, size.height * 0.5,
+        size.width * 0.5, size.height * 0.45);
+
+    path.quadraticBezierTo(
+        size.width * 0.75, size.height * 0.4, size.width, size.height * 0.45);
+    path.lineTo(size.width, 0);
+    path.lineTo(0, 0);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+}
