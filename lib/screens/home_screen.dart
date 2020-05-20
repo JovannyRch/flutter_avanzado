@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: HeaderCurvo(),
+        body: HeaderWave(),
       ),
     );
   }
