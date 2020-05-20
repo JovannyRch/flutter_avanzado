@@ -5,7 +5,11 @@ class SquareHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      height: 250.0,
+      width: double.infinity,
+      color: Colors.green,
+    );
   }
 }
 
@@ -24,8 +28,8 @@ class Header1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
+      height: double.infinity,
+      width: double.infinity,
       child: CustomPaint(
         painter: _MiPainter(),
       ),
