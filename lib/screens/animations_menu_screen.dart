@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_avanzado/screens/animaciones_screen.dart';
+import 'package:flutter_avanzado/screens/animations_reto_1.dart';
 import 'package:flutter_avanzado/screens/headers_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class AnimationMenu extends StatelessWidget {
   List<String> ops = [
-    'Header Cuadrado',
-    'Header Redondeado',
-    'Header Diagonal',
-    'Header Triangular',
-    'Header Curvo',
-    'Header Wave',
-    'Header Gradiante',
+    'Cuadrado animado',
+    'Reto: Cuadrado con animacion cuadricular',
   ];
 
   @override
@@ -27,13 +24,18 @@ class HomeScreen extends StatelessWidget {
                     i,
                     ListTile(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HeadersHome(
-                                    tipo: i + 1,
-                                  )),
-                        );
+                        if (i == 0) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AnimacionesScreen()),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Reto1()),
+                          );
+                        }
                       },
                       title: Text(el),
                       trailing: Icon(Icons.arrow_forward_ios),
