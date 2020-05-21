@@ -18,7 +18,15 @@ class RoundedHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      height: 250.0,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(40.0),
+              bottomRight: Radius.circular(40.0))),
+    );
   }
 }
 
