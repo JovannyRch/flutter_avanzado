@@ -1,27 +1,71 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as Math;
 
-class CircularProgress extends StatelessWidget {
+class CircularProgress extends StatefulWidget {
   final double porcentaje;
+  final Color color;
+  CircularProgress({this.porcentaje, this.color = Colors.green});
 
-  CircularProgress({this.porcentaje});
+  @override
+  _CircularProgressState createState() => _CircularProgressState();
+}
+
+class _CircularProgressState extends State<CircularProgress>
+    with SingleTickerProviderStateMixin {
+  AnimationController animationController;
+  double porcentajeAnterior;
+  @override
+  void initState() {
+    porcentajeAnterior = widget.porcentaje;
+    animationController = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 200));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(5.0),
-      width: 200,
-      height: 200,
-      decoration: BoxDecoration(),
-      child: CustomPaint(
-        painter: _Radial(porcentaje: porcentaje),
-      ),
+    animationController.forward(from: 0.0);
+
+    final direfenciaAnimar = widget.porcentaje - porcentajeAnterior;
+    porcentajeAnterior = widget.porcentaje;
+    return AnimatedBuilder(
+      animation: animationController,
+      builder: (BuildContext context, Widget child) {
+        return Container(
+          padding: EdgeInsets.all(10.0),
+          height: double.infinity,
+          width: double.infinity,
+          child: CustomPaint(
+            painter: _Radial(
+                color: widget.color,
+                porcentaje: (widget.porcentaje - direfenciaAnimar) +
+                    (direfenciaAnimar * animationController.value)),
+          ),
+        );
+      },
     );
+
+    /* return Container(
+      padding: EdgeInsets.all(10.0),
+      height: double.infinity,
+      width: double.infinity,
+      child: CustomPaint(
+        painter: _Radial(porcentaje: widget.porcentaje),
+      ),
+    ); */
   }
 }
 
 class _Radial extends CustomPainter {
   final double porcentaje;
-  _Radial({this.porcentaje});
+  final Color color;
+  _Radial({this.porcentaje, this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -29,6 +73,7 @@ class _Radial extends CustomPainter {
     final paint = new Paint()
       ..strokeWidth = 4.0
       ..color = Colors.grey
+      ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
     Offset center = Offset(size.width * 0.5, size.height * 0.5);
@@ -38,7 +83,7 @@ class _Radial extends CustomPainter {
     //Arco
     final paintArco = new Paint()
       ..strokeWidth = 10.0
-      ..color = Colors.orange
+      ..color = color
       ..style = PaintingStyle.stroke;
 
     //Parte que se va a ir llenando

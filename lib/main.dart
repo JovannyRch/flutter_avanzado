@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_avanzado/screens/animaciones_screen.dart';
 import 'package:flutter_avanzado/screens/headers_menu_screen.dart';
+import 'package:flutter_avanzado/screens/loader/graficas_screen.dart';
 import 'package:flutter_avanzado/screens/loader/loader_screen.dart';
 
 import 'screens/animations_menu_screen.dart';
@@ -55,6 +56,16 @@ class Menu extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => LoaderScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text("Loaders"),
+              subtitle: Divider(),
+              trailing: Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => GraficasScreen()),
                 );
               },
             )
