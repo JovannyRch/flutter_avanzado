@@ -6,6 +6,7 @@ import 'package:flutter_avanzado/screens/loader/graficas_screen.dart';
 import 'package:flutter_avanzado/screens/loader/loader_screen.dart';
 import 'package:flutter_avanzado/screens/pinterest/pinterest_screen.dart';
 import 'package:flutter_avanzado/screens/slides/slide_home_screen.dart';
+import 'package:flutter_avanzado/screens/sliver_list_app/sliver_list_screen.dart';
 
 import 'screens/animations_menu_screen.dart';
 
@@ -99,6 +100,16 @@ class Menu extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => EmergencyPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text("Sliver List App"),
+              subtitle: Divider(),
+              trailing: Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => SliverListScreen()),
                 );
               },
             )
