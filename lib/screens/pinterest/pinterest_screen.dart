@@ -1,23 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_avanzado/widgets/pinteres_menu_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 
 class PinterestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: PinteresGrid(),
+    double ancho = MediaQuery.of(context).size.width;
+    double alto = MediaQuery.of(context).size.height;
+    return ChangeNotifierProvider(
+      create: (_) => _MenuModel(),
+      child: Scaffold(
+        body: Stack(children: <Widget>[
+          PinteresGrid(),
+          PinterestPositioned(ancho: ancho, alto: alto),
+        ]),
       ),
     );
   }
 }
 
-class PinteresGrid extends StatelessWidget {
+class PinterestPositioned extends StatelessWidget {
+  const PinterestPositioned({
+    Key key,
+    @required this.ancho,
+    @required this.alto,
+  }) : super(key: key);
+
+  final double ancho;
+  final double alto;
+
+  @override
+  Widget build(BuildContext context) {
+    final mostrar = Provider.of<_MenuModel>(context).mostrar;
+    return Positioned(
+      child: Container(
+        width: ancho,
+        child: Align(
+            child: PinterestMenu(
+          mostrar: mostrar,
+        )),
+      ),
+      top: alto * 0.90,
+    );
+  }
+}
+
+class PinteresGrid extends StatefulWidget {
+  @override
+  _PinteresGridState createState() => _PinteresGridState();
+}
+
+class _PinteresGridState extends State<PinteresGrid> {
+  ScrollController controller = new ScrollController();
   List<int> items = List.generate(100, (index) => index);
+  double scrollAnterior = 0;
+  @override
+  void initState() {
+    super.initState();
+    this.controller.addListener(() {
+      if (this.controller.offset > this.scrollAnterior) {
+        //Ocultar
+        Provider.of<_MenuModel>(context, listen: false).mostrar = false;
+      } else {
+        //Mostrar
+        Provider.of<_MenuModel>(context, listen: false).mostrar = true;
+      }
+      this.scrollAnterior = this.controller.offset;
+    });
+  }
+
+  @override
+  void dispose() {
+    this.controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return new StaggeredGridView.countBuilder(
+      controller: controller,
       crossAxisCount: 4,
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) => _PinterestItem(index),
@@ -49,3 +111,27 @@ class _PinterestItem extends StatelessWidget {
         ));
   }
 }
+
+class _MenuModel with ChangeNotifier {
+  bool _mostrar = true;
+  get mostrar => _mostrar;
+
+  set mostrar(bool valor) {
+    this._mostrar = valor;
+    notifyListeners();
+  }
+}
+
+/* 
+
+zfs create rpool/$carpeta
+zfs list | grep $carpeta
+zfs set sharenfs=on rpool/$carpeta
+showmount -e | grep $carpeta
+chmod -R 755 /rpool/$carpeta
+
+
+mount -F nfs -o rw ip:/rpool/$1 /carpeta/
+ 
+
+*/
