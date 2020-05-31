@@ -39,6 +39,9 @@ class PinterestPositioned extends StatelessWidget {
         child: Align(
             child: PinterestMenu(
           mostrar: mostrar,
+          backgroundColor: Colors.white,
+          activeColor: Colors.red,
+          secondaryColor: Colors.blueGrey,
         )),
       ),
       top: alto * 0.90,

@@ -22,8 +22,15 @@ class PinterestMenu extends StatelessWidget {
         onPressed: () => {print("Icon supervised icon")}),
   ];
   final bool mostrar;
+  final Color backgroundColor;
+  final Color activeColor;
+  final Color secondaryColor;
   //PinterestMenu({@required this.items});
-  PinterestMenu({this.mostrar = true});
+  PinterestMenu(
+      {this.mostrar = true,
+      this.backgroundColor,
+      this.activeColor,
+      this.secondaryColor});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +42,7 @@ class PinterestMenu extends StatelessWidget {
         duration: Duration(milliseconds: 300),
         child: _PinterestBackground(
           ancho: ancho,
+          background: this.backgroundColor,
           child: _MenuItems(items),
         ),
       ),
@@ -44,10 +52,14 @@ class PinterestMenu extends StatelessWidget {
 
 class _PinterestBackground extends StatelessWidget {
   const _PinterestBackground(
-      {Key key, @required this.ancho, @required this.child})
+      {Key key,
+      @required this.ancho,
+      @required this.child,
+      @required this.background})
       : super(key: key);
 
   final double ancho;
+  final Color background;
   final child;
   @override
   Widget build(BuildContext context) {
@@ -56,7 +68,7 @@ class _PinterestBackground extends StatelessWidget {
       width: ancho * 0.75,
       height: 60.0,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: this.background,
         borderRadius: BorderRadius.all(Radius.circular(100.0)),
         boxShadow: <BoxShadow>[
           BoxShadow(

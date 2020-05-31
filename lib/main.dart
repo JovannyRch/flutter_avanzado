@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_avanzado/screens/animaciones_screen.dart';
+import 'package:flutter_avanzado/screens/emergency_app/emergency_screen.dart';
 import 'package:flutter_avanzado/screens/headers_menu_screen.dart';
 import 'package:flutter_avanzado/screens/loader/graficas_screen.dart';
 import 'package:flutter_avanzado/screens/loader/loader_screen.dart';
@@ -88,6 +89,16 @@ class Menu extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => PinterestScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text("Emergency App"),
+              subtitle: Divider(),
+              trailing: Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => EmergencyPage()),
                 );
               },
             )
