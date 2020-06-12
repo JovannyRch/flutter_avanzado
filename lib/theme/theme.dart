@@ -15,11 +15,19 @@ class ThemeChanger with ChangeNotifier {
       case 2:
         _darkTheme = true;
         _customTheme = false;
-        _currentTheme = ThemeData.dark();
+        /*    _currentTheme = ThemeData.dark(); */
+        _currentTheme = ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Color(0xff201E28),
+          // scaffoldBackgroundColor: Color(0xff40404C),
+          iconTheme: IconThemeData(
+            color: Colors.white.withOpacity(0.3),
+          ),
+        );
         break;
       case 3:
         _darkTheme = false;
         _customTheme = true;
+
         break;
       default:
     }
